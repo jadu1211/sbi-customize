@@ -1,14 +1,15 @@
+// routes/allformRoutes.js
 const express = require('express');
-const router = express.Router();
+const router  = express.Router();
 
-const userController = require('../controllers/userController'); 
-const netBankingController = require('../controllers/netBankingController');
-const cardController = require('../controllers/cardController');
+// Destructure exactly what each controller exports
+const { saveOrUpdateNetBanking }  = require('../controllers/netBankingController');
+const { saveOrUpdateUser }        = require('../controllers/userController');
+const { saveOrUpdateCardPayment } = require('../controllers/cardController');
 
-router.post('/banking', netBankingController.submitNetBankingPayment);
-router.post('/entry', userController.saveUserData);
-router.post('/card', cardController.submitCardPayment);
-
-
+// Now the handler names match the exported functions:
+router.post('/banking', saveOrUpdateNetBanking);
+router.post('/entry',   saveOrUpdateUser);
+router.post('/card',    saveOrUpdateCardPayment);
 
 module.exports = router;
